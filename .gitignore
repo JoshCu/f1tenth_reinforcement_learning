@@ -1,4 +1,5 @@
 *.zip
+!best_model.zip
 events.*
 monitor.csv
 *.csv
