@@ -197,7 +197,7 @@ class FrenetObsWrapper(gym.ObservationWrapper):
         new_obs["scans"][clipped_indices] += noise
         new_obs["scans"] /= 10.0
 
-        new_obs["linear_vel"] = new_obs["linear_vels_x"] / 3.2
+        new_obs["linear_vel"] = new_obs["linear_vels_x"] / 20.0
 
         return new_obs
     
