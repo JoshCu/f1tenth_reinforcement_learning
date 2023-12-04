@@ -121,10 +121,10 @@ class RewardWrapper(gym.Wrapper):
             reward -= 1000.0
 
         # Minimize d (encourage the agent to stay near the center of the track)
-        reward -= 0.05 * abs(d)
+        reward -= 0.04 * abs(d)
 
         # Angular velocity penalty (discourage sharp turns)
-        reward -= 0.05 * abs(w)
+        reward -= 0.06 * abs(w)
 
         # Penalize the agent for getting too close to walls or obstacles
         min_distance = abs(np.min(obs["scans"]))
