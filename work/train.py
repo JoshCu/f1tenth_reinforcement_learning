@@ -1,11 +1,14 @@
 from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import CallbackList
-from utils import create_env, linear_schedule
+from utils import create_env, linear_schedule, create_vec_env
 from callbacks import TensorboardCallback, CustomEvalCallback
 
 import random
 from torch.nn import Mish
 
+N_ENVS = 20
+N_STEPS = 512
+DEVICE = "cuda"
 
 if __name__ == "__main__":
     save_interval = 5e4
@@ -24,6 +27,7 @@ if __name__ == "__main__":
     lr_schedule = linear_schedule(initial_learning_rate)
 
     env = create_env(maps=maps, seed=8)
+    envs = create_vec_env(maps=maps, seed=8, n_envs=N_ENVS)
     eval_env = create_env(maps=maps, seed=8)
 
     policy_kwargs = dict(activation_fn=Mish,
@@ -31,20 +35,20 @@ if __name__ == "__main__":
 
     model = PPO(
         "MlpPolicy",
-        env,
+        envs,
         verbose=2,
-        n_steps=512,
+        n_steps=N_STEPS,
         ent_coef=0.01,
         # learning_rate=0.0001,
         learning_rate=lr_schedule,
-        batch_size=128,
+        batch_size=N_ENVS*N_STEPS,
         # max_grad_norm=0.5,
         # gae_lambda=0.95,
         gamma=0.993,
         n_epochs=10,
         clip_range=0.25,
         tensorboard_log=log_dir,
-        device="cpu",
+        device=DEVICE,
         policy_kwargs=policy_kwargs
     )
         

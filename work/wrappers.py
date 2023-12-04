@@ -6,7 +6,7 @@ import numpy as np
 
 from sklearn.neighbors import KDTree
 
-NUM_BEAMS = 2155
+NUM_BEAMS=1440
 DTYPE = np.float32
 
 class DelayedAction(gym.Wrapper):

@@ -9,7 +9,7 @@ maps = list(range(1, 450))
 env = create_env(maps=maps, seed=5)
 env.training = False
 
-# model = "/Users/meraj/workspace/f1tenth_gym/work/models/1lap_b2048_g9999_600k"
+# model = "/home/josh/f1tenth_reinforcement_learning/work/models/1lap_b2048_g9999_600k"
 
 # model = PPO.load(path=model, env=env)
 

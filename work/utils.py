@@ -16,7 +16,7 @@ import numpy as np
 import gym
 from PIL import Image
 
-NUM_BEAMS = 2155
+NUM_BEAMS=1440
 DTYPE = np.float64
 
 def create_env(maps, seed=5, domain_randomize=True, flatten=True):
@@ -33,8 +33,7 @@ def create_env(maps, seed=5, domain_randomize=True, flatten=True):
     
     env = FilterObservation(env, filter_keys=["scans", "linear_vel"])
     env = TimeLimit(env, max_episode_steps=10000)
-    env = RescaleAction(env, min_action = np.array([-1.0, 0.0]), 
-                             max_action = np.array([1.0, 1.0]))
+    env = RescaleAction(env, np.array([-1.0, 0.0]), np.array([1.0, 1.0]))
     
     if domain_randomize:
         env = LidarRandomizer(env)
@@ -52,6 +51,44 @@ def create_env(maps, seed=5, domain_randomize=True, flatten=True):
     
 
     return env
+
+from stable_baselines3.common.vec_env import SubprocVecEnv
+# Other imports remain the same
+
+def create_vec_env(maps, seed=5, domain_randomize=True, flatten=True, n_envs=4):
+    def make_env(rank):
+        def _init():
+            env = gym.make(
+                "f110_gym:f110-v0",
+                num_agents=1,
+                maps=maps,
+                seed=seed + rank,
+                num_beams=NUM_BEAMS,
+            )
+            env = FrenetObsWrapper(env)
+            env = RewardWrapper(env)
+            
+            env = FilterObservation(env, filter_keys=["scans", "linear_vel"])
+            env = TimeLimit(env, max_episode_steps=10000)
+            env = RescaleAction(env, np.array([-1.0, 0.0]), np.array([1.0, 1.0]))
+            
+            if domain_randomize:
+                env = LidarRandomizer(env)
+                env = ActionRandomizer(env)
+                env = DelayedAction(env)
+            
+            if flatten:
+                env = FlattenObservation(env)
+                # env = FrameStack(env, 3)
+            return env
+        return _init
+
+    envs = [make_env(i) for i in range(n_envs)]
+    env = SubprocVecEnv(envs) if n_envs > 1 else DummyVecEnv([make_env(0)])
+    env = VecNormalize(env, norm_reward=True, norm_obs=False)
+
+    return env
+
 
 
 def linear_schedule(initial_learning_rate: float):

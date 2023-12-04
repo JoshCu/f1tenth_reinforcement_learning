@@ -15,7 +15,7 @@ from gym.wrappers import FlattenObservation, FrameStack
 import numpy as np
 import gym
 
-NUM_BEAMS = 2155
+NUM_BEAMS=1440
 DTYPE = np.float64
 
 def create_env(maps, seed=5, domain_randomize=True, flatten=True):

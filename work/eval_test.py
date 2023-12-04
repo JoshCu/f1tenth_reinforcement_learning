@@ -12,7 +12,7 @@ maps = list(range(1, 450))
 env = create_env(maps=maps, seed=5)
 env.training = False
 
-model = "/Users/meraj/workspace/f1tenth_gym/work/models/dr_delayed_100k"
+model = "/home/josh/f1tenth_reinforcement_learning/work/best_models/best_model.zip"
 
 model = PPO.load(path=model)
 
@@ -36,9 +36,9 @@ while not done:
     image_array = np.array(img)
 
     # Plot the image
-    plt.imshow(image_array, cmap='gray')
-    plt.show()
-    # env.render(mode="human_fast")
+    # plt.imshow(image_array, cmap='gray')
+    # plt.show()
+    env.render(mode="human_fast")
 
 
 

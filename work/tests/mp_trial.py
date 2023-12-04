@@ -9,12 +9,12 @@ if __name__=='__main__':
     log_dir = "./metrics/"
     maps = list(range(2,60))
     
-    num_cpu = 4  # Number of processes to use
+    num_cpu = 20  # Number of processes to use
     vec_env = SubprocVecEnv([(lambda i: lambda: create_env(maps=maps))(i)
                              for i in range(num_cpu)])
 
     # model = PPO("MultiInputPolicy", vec_env, verbose=1, tensorboard_log=log_dir)
-    model_path = "/Users/meraj/workspace/f1tenth_gym/work/models/ppo_model_400000.zip"
+    model_path = "/home/josh/f1tenth_reinforcement_learning/work/models/ppo_model_400000.zip"
     model = PPO.load(model_path, env=vec_env, tensorboard_log=log_dir)
 
     combined_callback = TensorboardCallback(save_interval, save_path, verbose=1)
