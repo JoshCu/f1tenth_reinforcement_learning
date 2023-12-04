@@ -16,7 +16,7 @@ import numpy as np
 import gym
 from PIL import Image
 
-NUM_BEAMS=1440
+NUM_BEAMS=1080
 DTYPE = np.float64
 
 def create_env(maps, seed=5, domain_randomize=True, flatten=True):
