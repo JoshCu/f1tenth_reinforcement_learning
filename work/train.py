@@ -7,14 +7,14 @@ import random
 from torch.nn import Mish
 
 N_ENVS = 20
-N_STEPS = 512
+N_STEPS = 2048
 DEVICE = "cuda"
 
 if __name__ == "__main__":
     save_interval = 5e4
     eva_freq = 5e4
     n_eval_episodes = 20
-    learn_steps = 1e7
+    learn_steps = 1e8
     log_name = "dr_delayed"
 
     save_path = f"./models/{log_name}"
