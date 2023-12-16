@@ -14,7 +14,7 @@ if __name__ == "__main__":
     save_interval = 5e4
     eva_freq = 5e4
     n_eval_episodes = 20
-    learn_steps = 1e8
+    learn_steps = 1e7
     log_name = "dr_delayed"
 
     save_path = f"./models/{log_name}"

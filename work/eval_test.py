@@ -12,6 +12,7 @@ maps = list(range(1, 450))
 env = create_env(maps=maps, seed=5)
 env.training = False
 
+# modify this path to point to the best model, it needs to be absolute.
 model = "/home/josh/f1tenth_reinforcement_learning/work/best_models/best_model.zip"
 
 model = PPO.load(path=model)
@@ -30,10 +31,10 @@ while not done:
     obs, reward, done, info = env.step(action)
     
     
-    img = lidar_to_image(obs[0][:-1])
+    # img = lidar_to_image(obs[0][:-1])
     
     # Convert the image to a numpy array for visualization
-    image_array = np.array(img)
+    # image_array = np.array(img)
 
     # Plot the image
     # plt.imshow(image_array, cmap='gray')
