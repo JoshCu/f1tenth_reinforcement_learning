@@ -1,4 +1,3 @@
--e git+ssh://git@github.com/JoshCu/f1tenth_reinforcement_learning.git@b3f2602716b13fe0d95da2b9378d857d68065b36#egg=f110_gym
 gym==0.21.0
 gymnasium==0.29.1
 numpy==1.26.2
@@ -11,3 +10,4 @@ shapely==2.0.2
 stable-baselines3==1.8.0
 tensorboard==2.15.1
 #pip install tensorflow==2.15.0
+-e git+ssh://git@github.com/joshcu/f1tenth_reinforcement_learning@a0512bb057ea873aadaee803a52a310d741e1a1e#egg=f110_gym

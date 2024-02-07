@@ -36,6 +36,7 @@ import matplotlib.pyplot as plt
 import argparse
 import csv
 import random
+from multiprocessing import Pool
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--seed", type=int, default=13, help="Seed for the numpy.")
@@ -309,14 +310,22 @@ def convert_track(track, track_int, track_ext, iter, width):
     save_custom_format_csv(xy_pixels, csv_file, width)
 
 
-if __name__ == "__main__":
-    map_idx = 0
-    for i in range(NUM_MAPS):
+def create_and_convert_track(map_idx):
+    while True:
         try:
             track, track_int, track_ext, width = create_track()
             convert_track(track, track_int, track_ext, map_idx, width)
-            print(f"# {map_idx}")
-            map_idx += 1
-        except Exception:
-            print(f"\nRandom generator failed: {Exception}, retrying")
-            continue
+            return f"# {map_idx}"
+        except Exception as e:
+            pass
+
+
+if __name__ == "__main__":
+    NUM_MAPS = 1000  # Assuming NUM_MAPS is defined somewhere
+
+    # Create a multiprocessing pool
+    with Pool() as pool:
+        results = pool.map(create_and_convert_track, range(NUM_MAPS))
+
+    # Print the results    
+    len(results)

@@ -310,7 +310,7 @@ class F110Env(gym.Env):
 
     def _set_random_map(self):
         self.map_idx = random.choice(self.maps)
-        self.map_dir = '/home/josh/f1tenth_reinforcement_learning/work/tracks'
+        self.map_dir = '/home/josh/code/f1tenth_reinforcement_learning/work/tracks'
         self.map_name = 'map{}'.format(self.map_idx)
 
         self.map_yaml = f"{self.map_dir}/maps/{self.map_name}.yaml"

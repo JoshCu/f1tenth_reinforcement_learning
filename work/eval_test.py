@@ -13,7 +13,7 @@ env = create_env(maps=maps, seed=5)
 env.training = False
 
 # modify this path to point to the best model, it needs to be absolute.
-model = "/home/josh/f1tenth_reinforcement_learning/work/best_models/best_model.zip"
+model = "/home/josh/code/f1tenth_reinforcement_learning/work/best_models/best_model.zip"
 
 model = PPO.load(path=model)
 
